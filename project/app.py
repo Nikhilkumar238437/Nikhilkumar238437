@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-
+import webbrowser
 app = Flask(__name__)
 
 @app.route('/voice', methods=['POST'])
@@ -8,11 +8,14 @@ def receive_voice():
     command = data.get("command", "").lower()
     print("🎙️ Received Command:", command)
 
-    # Example logic
     if "sales" in command:
-        return jsonify({"response": "Showing total sales"})
+        dashboard_url = "https://app.powerbi.com/links/YOUR-DASHBOARD-LINK"
+        webbrowser.open(dashboard_url)
+        return jsonify({"response": "Opening sales dashboard"})
+
     elif "region" in command:
         return jsonify({"response": "Filtering by region"})
+
     else:
         return jsonify({"response": "Unknown command"})
 
